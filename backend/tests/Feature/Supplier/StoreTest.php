@@ -34,13 +34,23 @@ describe('validation rules', function () {
             ]);
     });
 
-    test('supplier::min characters should be 11', function () {
+    test('supplier::min characters should be  min 11', function () {
 
         postJson(route('suppliers.store', [
             'cpf_cnpj' => '1111111111',
         ]))
             ->assertJsonValidationErrors([
                 'cpf_cnpj' => 'least 11 characters',
+            ]);
+    });
+
+    test('supplier::min characters should be max 14', function () {
+
+        postJson(route('suppliers.store', [
+            'cpf_cnpj' => '111111111111111',
+        ]))
+            ->assertJsonValidationErrors([
+                'cpf_cnpj' => 'must not be greater than 14 characters.',
             ]);
     });
 

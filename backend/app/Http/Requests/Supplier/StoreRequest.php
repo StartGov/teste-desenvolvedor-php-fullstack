@@ -16,7 +16,7 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cpf_cnpj' => ['required', 'min:11']
+            'cpf_cnpj' => ['required', 'min:11', 'max:14']
         ];
     }
 }
