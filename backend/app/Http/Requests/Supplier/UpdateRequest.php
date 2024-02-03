@@ -2,8 +2,11 @@
 
 namespace App\Http\Requests\Supplier;
 
+use App\Models\Supplier;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
+/** @property-read string $supplier */
 class UpdateRequest extends FormRequest
 {
     /**
@@ -21,8 +24,11 @@ class UpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+
+        /** @var Supplier $supplier */
+        $supplier = $this->route()->supplier;
         return [
-            'cpf_cnpj' => ['required', 'min:11', 'max:14', 'unique:suppliers'],
+            'cpf_cnpj' => ['required', 'min:11', 'max:14', Rule::unique('suppliers')->ignoreModel($supplier)],
             'nome_fantasia' => ['required'],
             'razao_social' => ['required'],
             'contato' => ['required'],
