@@ -67,4 +67,11 @@ describe('validation rules', function () {
                 'cpf_cnpj' => 'already been taken',
             ]);
     });
+
+    test('supplier::nome_fantasia required', function () {
+        postJson(route('suppliers.store', []))
+            ->assertJsonValidationErrors([
+                'nome_fantasia' => 'required',
+            ]);
+    });
 });
