@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Models\Supplier;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\postJson;
 
@@ -34,7 +35,7 @@ describe('validation rules', function () {
             ]);
     });
 
-    test('supplier::min characters should be  min 11', function () {
+    test('supplier::cpf_cnpj characters should be min 11', function () {
 
         postJson(route('suppliers.store', [
             'cpf_cnpj' => '1111111111',
@@ -44,7 +45,7 @@ describe('validation rules', function () {
             ]);
     });
 
-    test('supplier::min characters should be max 14', function () {
+    test('supplier::cpf_cnpj characters should be max 14', function () {
 
         postJson(route('suppliers.store', [
             'cpf_cnpj' => '111111111111111',
@@ -54,4 +55,16 @@ describe('validation rules', function () {
             ]);
     });
 
+    test('supplier::cpf_cnpj should be unique', function () {
+
+        Supplier::factory()->create([
+            'cpf_cnpj' => '19131243000197'
+        ]);
+        postJson(route('suppliers.store', [
+            'cpf_cnpj' => '19131243000197',
+        ]))
+            ->assertJsonValidationErrors([
+                'cpf_cnpj' => 'already been taken',
+            ]);
+    });
 });
