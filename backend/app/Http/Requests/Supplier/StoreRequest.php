@@ -18,7 +18,10 @@ class StoreRequest extends FormRequest
         return [
             'cpf_cnpj' => ['required', 'min:11', 'max:14', 'unique:suppliers'],
             'nome_fantasia' => ['required'],
-            'razao_social' => ['required']
+            'razao_social' => ['required'],
+            'contato' => ['required'],
+            'endereco' => ['required'],
+            'numero' => ['required'],
         ];
     }
 }

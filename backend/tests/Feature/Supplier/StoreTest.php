@@ -81,4 +81,25 @@ describe('validation rules', function () {
                 'razao_social' => 'required',
             ]);
     });
+
+    test('supplier::contato required', function () {
+        postJson(route('suppliers.store', []))
+            ->assertJsonValidationErrors([
+                'contato' => 'required',
+            ]);
+    });
+
+    test('supplier::endereco required', function () {
+        postJson(route('suppliers.store', []))
+            ->assertJsonValidationErrors([
+                'endereco' => 'required',
+            ]);
+    });
+
+    test('supplier::numero required', function () {
+        postJson(route('suppliers.store', []))
+            ->assertJsonValidationErrors([
+                'numero' => 'required',
+            ]);
+    });
 });
