@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Supplier;
+
 use function Pest\Laravel\getJson;
 
 it('should be able to list suppliers', function () {
@@ -18,14 +19,13 @@ it('should be able to paginate list of suppliers', function () {
 
     $response = getJson(route('suppliers.index'))->assertSuccessful();
 
-
     $response->assertJsonCount(15, 'data');
 
     $response->assertJson([
         'meta' => [
             'current_page' => 1,
-            'per_page' => 15,
-            'total' => 50,
+            'per_page'     => 15,
+            'total'        => 50,
         ],
     ]);
 });

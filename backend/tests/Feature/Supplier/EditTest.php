@@ -1,30 +1,29 @@
 <?php
 
-
 use App\Models\Supplier;
-use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Laravel\putJson;
+
+use function Pest\Laravel\{assertDatabaseHas, putJson};
 
 it('should be able to update a supplier', function () {
 
     $supplier = Supplier::factory()->create();
 
     putJson(route('suppliers.update', $supplier), [
-        'cpf_cnpj' => $supplier->cpf_cnpj,
+        'cpf_cnpj'      => $supplier->cpf_cnpj,
         'nome_fantasia' => 'Updating Nome',
-        'razao_social' => $supplier->razao_social,
-        'contato' => $supplier->contato,
-        'endereco' => $supplier->endereco,
-        'numero' => $supplier->numero,
+        'razao_social'  => $supplier->razao_social,
+        'contato'       => $supplier->contato,
+        'endereco'      => $supplier->endereco,
+        'numero'        => $supplier->numero,
     ])->assertOk();
 
     assertDatabaseHas('suppliers', [
-        'cpf_cnpj' => $supplier->cpf_cnpj,
+        'cpf_cnpj'      => $supplier->cpf_cnpj,
         'nome_fantasia' => 'Updating Nome',
-        'razao_social' => $supplier->razao_social,
-        'contato' => $supplier->contato,
-        'endereco' => $supplier->endereco,
-        'numero' => $supplier->numero,
+        'razao_social'  => $supplier->razao_social,
+        'contato'       => $supplier->contato,
+        'endereco'      => $supplier->endereco,
+        'numero'        => $supplier->numero,
     ]);
 });
 
@@ -68,7 +67,7 @@ describe('validation rules', function () {
 
     test('supplier::cpf_cnpj should be unique', function () {
         Supplier::factory()->create([
-            'cpf_cnpj' => '19131243000197'
+            'cpf_cnpj' => '19131243000197',
         ]);
 
         $supplier = Supplier::factory()->create();
@@ -82,22 +81,22 @@ describe('validation rules', function () {
     });
 
     // TODO: test not passing
-//    test('supplier::should be unique only if id is different', function () {
-//        $supplier = Supplier::factory()->create([
-//            'cpf_cnpj' => '19131243000197',
-//        ]);
-//
-//        putJson(route('suppliers.update', $supplier), [
-//            'cpf_cnpj' => '19131243000197',
-//        ])->assertOk();
-//    });
+    //    test('supplier::should be unique only if id is different', function () {
+    //        $supplier = Supplier::factory()->create([
+    //            'cpf_cnpj' => '19131243000197',
+    //        ]);
+    //
+    //        putJson(route('suppliers.update', $supplier), [
+    //            'cpf_cnpj' => '19131243000197',
+    //        ])->assertOk();
+    //    });
 
     test('supplier::nome_fantasia required', function () {
 
         $supplier = Supplier::factory()->create();
 
         putJson(route('suppliers.update', $supplier), [
-          'nome_fantasia' => '',
+            'nome_fantasia' => '',
         ])
             ->assertJsonValidationErrors([
                 'nome_fantasia' => 'required',
@@ -132,7 +131,7 @@ describe('validation rules', function () {
 
         $supplier = Supplier::factory()->create();
 
-        putJson(route('suppliers.update',$supplier), [
+        putJson(route('suppliers.update', $supplier), [
             'endereco' => '',
         ])
             ->assertJsonValidationErrors([
@@ -160,12 +159,12 @@ test('after editing we should return a status 200 with the updated supplier', fu
     $request = putJson(
         route('suppliers.update', $supplier),
         [
-            'cpf_cnpj' => $supplier->cpf_cnpj,
+            'cpf_cnpj'      => $supplier->cpf_cnpj,
             'nome_fantasia' => 'Updating Nome',
-            'razao_social' => $supplier->razao_social,
-            'contato' => $supplier->contato,
-            'endereco' => $supplier->endereco,
-            'numero' => $supplier->numero,
+            'razao_social'  => $supplier->razao_social,
+            'contato'       => $supplier->contato,
+            'endereco'      => $supplier->endereco,
+            'numero'        => $supplier->numero,
         ]
     )->assertOk();
 
@@ -173,15 +172,15 @@ test('after editing we should return a status 200 with the updated supplier', fu
 
     $request->assertJson([
         'data' => [
-            'id'         => $supplier->id,
-            'cpf_cnpj' => $supplier->cpf_cnpj,
+            'id'            => $supplier->id,
+            'cpf_cnpj'      => $supplier->cpf_cnpj,
             'nome_fantasia' => $supplier->nome_fantasia,
-            'razao_social' => $supplier->razao_social,
-            'contato' => $supplier->contato,
-            'endereco' => $supplier->endereco,
-            'numero' => $supplier->numero,
-            'created_at' => $supplier->created_at->format('Y-m-d h:i:s'),
-            'updated_at' => $supplier->updated_at->format('Y-m-d h:i:s'),
+            'razao_social'  => $supplier->razao_social,
+            'contato'       => $supplier->contato,
+            'endereco'      => $supplier->endereco,
+            'numero'        => $supplier->numero,
+            'created_at'    => $supplier->created_at->format('Y-m-d h:i:s'),
+            'updated_at'    => $supplier->updated_at->format('Y-m-d h:i:s'),
         ],
     ]);
 });

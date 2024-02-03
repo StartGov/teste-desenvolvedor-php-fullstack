@@ -18,10 +18,10 @@ it('should be able to get data of supplier by valid cnpj', function () {
     $response->assertStatus(Response::HTTP_OK)
         ->assertJson([
             [
-                'uf' => 'SP',
-                'cep' => '01311902',
+                'uf'   => 'SP',
+                'cep'  => '01311902',
                 'cnpj' => '19131243000197',
-            ]
+            ],
         ]);
 });
 
@@ -41,8 +41,8 @@ it('should be able to return 400 response for invalid cnpj', function () {
         ->assertJson([
             [
                 'message' => 'CNPJ 1111111 inválido.',
-                'type' => 'bad_request',
-                'name' => 'BadRequestError',
-            ]
+                'type'    => 'bad_request',
+                'name'    => 'BadRequestError',
+            ],
         ]);
 });

@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Supplier;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\HttpFoundation\Response;
 
 class ServicesController extends Controller
 {
-
     private string $baseUrl;
     public function __construct()
     {

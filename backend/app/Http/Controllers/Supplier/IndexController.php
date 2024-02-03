@@ -9,7 +9,6 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class IndexController extends Controller
 {
-
     public function __invoke(): AnonymousResourceCollection
     {
         $suppliers = Supplier::paginate();

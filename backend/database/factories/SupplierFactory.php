@@ -17,12 +17,12 @@ class SupplierFactory extends Factory
     public function definition(): array
     {
         return [
-            'cpf_cnpj' => $this->faker->unique()->numberBetween(10000000000, 99999999999999),
+            'cpf_cnpj'      => $this->faker->unique()->numberBetween(10000000000, 99999999999999),
             'nome_fantasia' => $this->faker->name,
-            'razao_social' => $this->faker->name,
-            'contato' => $this->faker->phoneNumber,
-            'endereco' => $this->faker->streetAddress,
-            'numero' => $this->faker->numberBetween(1,500),
+            'razao_social'  => $this->faker->name,
+            'contato'       => $this->faker->phoneNumber,
+            'endereco'      => $this->faker->streetAddress,
+            'numero'        => $this->faker->numberBetween(1, 500),
         ];
     }
 }
