@@ -25,3 +25,12 @@ it('should be able to store a new supplier', function () {
     ]);
 });
 
+describe('validation rules', function () {
+
+    test('supplier::cpf_cnpj required', function () {
+        postJson(route('suppliers.store', []))
+            ->assertJsonValidationErrors([
+                'cpf_cnpj' => 'required',
+            ]);
+    });
+});
