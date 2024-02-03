@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('suppliers', Supplier\StoreController::class)->name('suppliers.store');
 Route::put('suppliers/{supplier}', Supplier\UpdateController::class)->name('suppliers.update');
+Route::delete('suppliers/{supplier}', Supplier\DeleteController::class)->name('suppliers.delete');
 // endregion
 
 
