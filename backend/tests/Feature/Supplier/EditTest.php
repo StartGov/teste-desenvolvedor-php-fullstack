@@ -152,3 +152,36 @@ describe('validation rules', function () {
             ]);
     });
 });
+
+test('after editing we should return a status 200 with the updated supplier', function () {
+
+    $supplier = Supplier::factory()->create();
+
+    $request = putJson(
+        route('suppliers.update', $supplier),
+        [
+            'cpf_cnpj' => $supplier->cpf_cnpj,
+            'nome_fantasia' => 'Updating Nome',
+            'razao_social' => $supplier->razao_social,
+            'contato' => $supplier->contato,
+            'endereco' => $supplier->endereco,
+            'numero' => $supplier->numero,
+        ]
+    )->assertOk();
+
+    $supplier = Supplier::latest()->first();
+
+    $request->assertJson([
+        'data' => [
+            'id'         => $supplier->id,
+            'cpf_cnpj' => $supplier->cpf_cnpj,
+            'nome_fantasia' => $supplier->nome_fantasia,
+            'razao_social' => $supplier->razao_social,
+            'contato' => $supplier->contato,
+            'endereco' => $supplier->endereco,
+            'numero' => $supplier->numero,
+            'created_at' => $supplier->created_at->format('Y-m-d h:i:s'),
+            'updated_at' => $supplier->updated_at->format('Y-m-d h:i:s'),
+        ],
+    ]);
+});
