@@ -103,3 +103,33 @@ describe('validation rules', function () {
             ]);
     });
 });
+
+test('after creating we should return a status 201 with the created supplier', function () {
+
+    $request = postJson(route('suppliers.store', [
+        'cpf_cnpj' => '19131243000197',
+        'nome_fantasia' => 'Empresa Teste',
+        'razao_social' => 'Empresa Teste',
+        'contato' => '99999999999',
+        'endereco' => 'FRANCA',
+        'numero' => '144',
+    ]))->assertCreated();
+
+    $supplier = Supplier::latest()->first();
+
+    $request->assertJson([
+        'data' => [
+            'id'         => $supplier->id,
+            'cpf_cnpj' => $supplier->cpf_cnpj,
+            'nome_fantasia' => $supplier->nome_fantasia,
+            'razao_social' => $supplier->razao_social,
+            'contato' => $supplier->contato,
+            'endereco' => $supplier->endereco,
+            'numero' => $supplier->numero,
+            'created_at' => $supplier->created_at->format('Y-m-d h:i:s'),
+            'updated_at' => $supplier->updated_at->format('Y-m-d h:i:s'),
+        ],
+    ]);
+
+
+});

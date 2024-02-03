@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Supplier;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Supplier\StoreRequest;
+use App\Http\Resources\SupplierResource;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 
@@ -20,5 +21,7 @@ class StoreController extends Controller
             'endereco' => $request->endereco,
             'numero' => $request->numero,
         ]);
+
+        return SupplierResource::make($supplier);
     }
 }
