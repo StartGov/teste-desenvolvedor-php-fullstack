@@ -11,7 +11,7 @@ class IndexController extends Controller
 
     public function __invoke()
     {
-        $suppliers = Supplier::all();
+        $suppliers = Supplier::paginate();
 
         return SupplierResource::collection($suppliers);
     }
