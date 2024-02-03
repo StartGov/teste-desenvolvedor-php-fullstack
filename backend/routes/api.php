@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 // region Suppliers
 
 Route::post('suppliers', Supplier\StoreController::class)->name('suppliers.store');
-
+Route::put('suppliers/{supplier}', Supplier\UpdateController::class)->name('suppliers.update');
 // endregion
 
 
