@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Supplier;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Supplier\UpdateRequest;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class UpdateController extends Controller
 {
 
-    public function __invoke(Request $request, Supplier $supplier)
+    public function __invoke(UpdateRequest $request, Supplier $supplier)
     {
 
         $supplier->update($request->all());
