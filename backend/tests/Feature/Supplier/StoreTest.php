@@ -74,4 +74,11 @@ describe('validation rules', function () {
                 'nome_fantasia' => 'required',
             ]);
     });
+
+    test('supplier::razao_social required', function () {
+        postJson(route('suppliers.store', []))
+            ->assertJsonValidationErrors([
+                'razao_social' => 'required',
+            ]);
+    });
 });
