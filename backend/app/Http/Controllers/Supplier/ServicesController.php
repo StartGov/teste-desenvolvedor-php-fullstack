@@ -10,12 +10,13 @@ use Symfony\Component\HttpFoundation\Response;
 class ServicesController extends Controller
 {
 
+    private string $baseUrl;
     public function __construct()
     {
         $this->baseUrl = 'https://brasilapi.com.br/api/cnpj/v1/';
     }
 
-    public function __invoke($cnpj)
+    public function __invoke(string $cnpj): response
     {
         $response = Http::get($this->baseUrl . $cnpj);
 

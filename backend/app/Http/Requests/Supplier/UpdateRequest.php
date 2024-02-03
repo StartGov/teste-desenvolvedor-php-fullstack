@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
     {
 
         /** @var Supplier $supplier */
-        $supplier = $this->route()->supplier;
+        $supplier = $this->route()->supplier; // @phpstan-ignore-line
         return [
             'cpf_cnpj' => ['required', 'min:11', 'max:14', Rule::unique('suppliers')->ignoreModel($supplier)],
             'nome_fantasia' => ['required'],

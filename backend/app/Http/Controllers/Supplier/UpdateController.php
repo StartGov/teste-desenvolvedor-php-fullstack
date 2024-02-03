@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class UpdateController extends Controller
 {
 
-    public function __invoke(UpdateRequest $request, Supplier $supplier)
+    public function __invoke(UpdateRequest $request, Supplier $supplier): SupplierResource
     {
 
         $supplier->update($request->all());

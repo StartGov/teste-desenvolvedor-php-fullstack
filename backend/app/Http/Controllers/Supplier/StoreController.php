@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class StoreController extends Controller
 {
 
-    public function __invoke(StoreRequest $request)
+    public function __invoke(StoreRequest $request): SupplierResource
     {
         $supplier = Supplier::create([
             'cpf_cnpj' => $request->cpf_cnpj,
