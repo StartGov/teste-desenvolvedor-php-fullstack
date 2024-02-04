@@ -141,8 +141,10 @@
         cancel-variant="danger"
         cancel-title="Cancel"
         no-close-on-backdrop
+        @hidden="reset"
         :ok-title=" edit ? 'Update' : 'Store' "
         @ok="edit ? updateSupplier() : storeSupplier()"
+        @cancel="reset()"
     >
       <b-form
           @reset="onReset"
@@ -460,6 +462,8 @@ export default {
           })
     },
     reset(){
+      this.edit = false
+      this.supplierID = null
       this.supplier.cpf_cnpj = ''
       this.supplier.nome_fantasia = ''
       this.supplier.razao_social = ''
@@ -503,7 +507,7 @@ export default {
     editSupplier(item){
       this.edit = true
       this.supplierID = item.id
-      this.supplier = item
+      this.supplier = { ...item }
       this.$bvModal.show('supplier')
     },
     updateSupplier(){
