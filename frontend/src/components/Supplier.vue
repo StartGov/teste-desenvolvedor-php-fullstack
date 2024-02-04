@@ -138,6 +138,7 @@
         cancel-variant="danger"
         cancel-title="Cancel"
         no-close-on-backdrop
+        @ok="storeSupplier"
     >
       <b-form
           @reset="onReset"
@@ -429,6 +430,9 @@ export default {
     formatCpfCnpj(cpfCnpj) {
       return cpfCnpj.replace(/[^\d]+/g, '')
     },
+    formatPhone(phone) {
+      return phone.replace(/\D/g, "")
+    },
     searchSupplier(){
       const formatedCpfCnpj = this.formatCpfCnpj(this.supplier.cpf_cnpj)
       axios
@@ -446,7 +450,7 @@ export default {
               icon: "error",
               title: "Oops...",
               text: `Algo deu errado: ${error.response.data[0].message} ou não encontrado`,
-            });
+            })
           })
     },
     reset(){
@@ -456,6 +460,36 @@ export default {
       this.supplier.contato = ''
       this.supplier.endereco = ''
       this.supplier.numero = ''
+    },
+    storeSupplier() {
+      const body = {
+        cpf_cnpj: this.formatCpfCnpj(this.supplier.cpf_cnpj),
+        nome_fantasia: this.supplier.nome_fantasia,
+        razao_social:this.supplier.razao_social,
+        contato: this.formatPhone(this.supplier.contato),
+        endereco: this.supplier.endereco,
+        numero:this.supplier.numero,
+      }
+      axios
+          .post('/suplliers',body)
+          .then(() => {
+            this.reset()
+            this.suppliers()
+            Swal.fire({
+              icon: "success",
+              title: "New supplier add.",
+              showConfirmButton: false,
+              timer: 1500
+            });
+          })
+          .catch(error => {
+            console.log(error)
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: `Algo deu errado: ${error.response.data} ou não encontrado`,
+            });
+          })
     },
   },
 }
