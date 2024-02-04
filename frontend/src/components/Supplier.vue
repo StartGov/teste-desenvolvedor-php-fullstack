@@ -148,14 +148,23 @@
             label="CPF/CNPJ:"
             label-for="input-1"
         >
-          <b-form-input
-              id="input-1"
-              v-model="supplier.cpf_cnpj"
-              placeholder="Enter cpf or cnpj"
-              :state="validationCpfCnpj"
-              required
-          >
-          </b-form-input>
+          <b-input-group size="sm" class="mb-2">
+            <b-form-input
+                id="input-1"
+                v-model="supplier.cpf_cnpj"
+                placeholder="Enter cpf or cnpj"
+                :state="validationCpfCnpj"
+                required
+            >
+            </b-form-input>
+              <b-input-group-prepend is-text>
+                  <b-icon
+                      icon="search"
+                      style="cursor:pointer"
+                      @click="searchSupplier()"
+                  />
+              </b-input-group-prepend>
+            </b-input-group>
           <b-form-invalid-feedback :state="validationCpfCnpj">
             Your CPF/CNPJ must be 11-14 characters long.
           </b-form-invalid-feedback>
@@ -332,7 +341,7 @@ export default {
           })
     },
     validationCpfCnpj() {
-      const value = this.supplier.cpf_cnpj.replace(/[^\d]+/g, '')
+      const value = this.formatCpfCnpj(this.supplier.cpf_cnpj)
       const isCpf = value.length === 11
       const isCnpj = value.length === 14
 
@@ -415,7 +424,30 @@ export default {
       this.$nextTick(() => {
         this.showForm = true
       })
-    }
+    },
+    formatCpfCnpj(cpfCnpj) {
+      return cpfCnpj.replace(/[^\d]+/g, '')
+    },
+    searchSupplier(){
+      const formatedCpfCnpj = this.formatCpfCnpj(this.supplier.cpf_cnpj)
+      axios
+          .get(`/suppliers/services/${formatedCpfCnpj}`)
+          .then(res => {
+            const response = res.data[0]
+            this.supplier.nome_fantasia = response.nome_fantasia
+            this.supplier.razao_social = response.razao_social
+            this.supplier.contato = response.ddd_telefone_1
+            this.supplier.endereco = response.logradouro
+            this.supplier.numero = response.numero
+          })
+          .catch(error => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: `Algo deu errado: ${error.response.data[0].message} ou não encontrado`,
+            });
+          })
+    },
   },
 }
 </script>
