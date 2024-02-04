@@ -209,7 +209,7 @@
               required
           ></b-form-input>
           <b-form-invalid-feedback :state="validationContato">
-            Your Contato must be valid (xx)xxxxxxxxx or xxxxxxxxxxx.
+            Your Contato must be xxxxxxxxxxx.
           </b-form-invalid-feedback>
         </b-form-group>
 
@@ -345,7 +345,7 @@ export default {
       return this.supplier.razao_social.length > 0 && this.supplier.razao_social.length <= 255
     },
     validationContato() {
-      return this.supplier.nome_fantasia.length > 0 && this.supplier.nome_fantasia.length <= 255
+      return this.supplier.contato.length > 0 && this.supplier.contato.length <= 255
     },
     validationEndereco() {
       return this.supplier.endereco.length > 0 && this.supplier.endereco.length <= 255
