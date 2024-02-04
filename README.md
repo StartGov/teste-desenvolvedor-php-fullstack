@@ -1,75 +1,105 @@
-[![](https://startgov.com.br/wp-content/uploads/2023/11/LOGO_VETOR.png)](https://www.startgov.com.br)
+### Desafio PHP FullStack
 
-# Nossa empresa
+# Clone o projeto
 
-A StartGov é uma empresa que se dedica a criar soluções inovadoras focadas na gestão de contratações, especialmente voltadas para o setor público. A empresa oferece um conjunto de ferramentas destinadas a facilitar e otimizar processos burocráticos relacionados a licitações, contratações diretas, gestão de contratos, ordens de fornecimento e serviço, além do cadastro de fornecedores. Essas soluções visam aumentar a celeridade dos trâmites administrativos e permitir a implementação de fluxos e processos padronizados.
+# Para rodar o projeto, siga os passos que foram divididos em duas etapas:
+# 1 - Etapa subir o backend
+# 2 - Startar o frontend
 
-# Conheça mais sobre a StartGov
 
-- Nosso Site - https://www.startgov.com.br/
-- Nosso Instagram - https://www.instagram.com/startgov/
+# Backend -------------:
 
-## Teste para Desenvolvedor PHP/Laravel e Vue.js
+# Certifique-se de que tenha docker e que ele esteja rodando atraves do comando:
+```sh
+docker ps
+```
 
-Bem-vindo ao teste de desenvolvimento para a posição de Desenvolvedor PHP/Laravel e Vue.js. O objetivo deste teste é desenvolver uma plataforma para o cadastro de fornecedores, permitindo a busca por CNPJ ou CPF, utilizando Laravel no backend e Vue.js no frontend.
+# Apos fazer o clone do projeto, entre na pasta do backend com o comando
+```sh
+cd backend
+```
+e execute:
+```sh
+docker compose build
+```
+# Copie o .env:
+```sh
+cp .env.example .env
+```
+# Atualize o .env se necessario
+```sh
+DB_CONNECTION=db
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=root
+```
+# Em seguida, execute o comando:
+```sh
+docker compose up -d
+```
+# Em seguida, execute o comando para entrar dentro do container:
+```sh
+docker exec -it backend-app-1 bash
+```
+# Apos isso, instale as dependencias do projeto:
+```sh
+composer install
+```
+# Gere a chave:
+```sh
+php artisan key:generate
+```
 
-## Descrição do Projeto
+# dê permissoes para a pasta:
+```sh
+sudo chmod -R 755 /var/www
+```
 
-### Backend (API Laravel):
+# Rode as migrations:
+```sh
+php artisan migrate:fresh --seed
+```
 
-#### CRUD de Fornecedores:
+# Verifique se consegue Acessar o backend na seguinte url:
+```sh
+http://localhost:8989
+```
+# Informações adicionais:
 
-- **Criar Fornecedor:**
-  - Permita o cadastro de fornecedores usando CNPJ ou CPF, incluindo informações como nome/nome da empresa, contato, endereço, etc.
-  - Valide a integridade e o formato dos dados, como o formato correto de CNPJ/CPF e a obrigatoriedade de campos.
+# Para rodar os testes execute:
+```sh
+php artisan test
+```
+# Para rodar o analizador de código estatico (phpstan):
+```sh
+vendor/bin/phpstan analyze
+```
 
-- **Editar Fornecedor:**
-  - Facilite a atualização das informações de fornecedores, mantendo a validação dos dados.
+# Frontend ---------------------:
 
-- **Excluir Fornecedor:**
-  - Possibilite a remoção segura de fornecedores.
+# Verifique se você está na pasta do frontend digitando o comando:
+```sh
+Linux: pwd | Windows: cd
+```
+# Caso não esteja, navega até o diretorio do frontend utilizando:
+```sh
+para voltar um nivel: cd .. | para navegar ao diretorio: cd frontend
+```
 
-- **Listar Fornecedores:**
-  - Apresente uma lista paginada de fornecedores, com filtragem e ordenação.
+# instale as dependencias:
+# Obs para rodar o frontend é necessario as versoes do node : v10.19.0 e npm: 6.14.4
 
-#### Migrations:
+```sh
+npm install
+```
+# Starte o servidor:
+```sh
+npm run serve
+```
 
-- Utilize migrations do Laravel para definir a estrutura do banco de dados, garantindo uma boa organização e facilidade de manutenção.
-
-### Frontend (Vue.js):
-
-- Desenvolva interfaces para todas as operações do CRUD, com validações e feedback visual adequado.
-
-## Requisitos
-
-### Backend:
-- Implementar busca por CNPJ na [BrasilAPI](https://brasilapi.com.br/docs#tag/CNPJ/paths/~1cnpj~1v1~1{cnpj}/get) ou qualquer outro endpoint público.
-
-## Tecnologias a serem utilizadas
-- HTML
-- CSS
-- VueJS 2.x ou superior
-- Framework Laravel (PHP) 9.x ou superior
-- MySQL ou Postgres
-- Pode utilizar Bootstrap ou qualquer outro UI Design
-
-## Critérios de Avaliação
-
-- Adesão aos requisitos funcionais e técnicos.
-- Qualidade do código, incluindo organização, padrões de desenvolvimento e segurança.
-- Usabilidade e design das interfaces de usuário.
-- Documentação do projeto, incluindo um README detalhado com instruções de instalação e operação.
-
-## Bônus
-
-- Implementação de testes automatizados.
-- Dockerização do ambiente de desenvolvimento.
-- Implementação de cache para otimizar o desempenho.
-
-## Entrega
-
-- Para iniciar o teste, faça um fork deste repositório; Se você apenas clonar o repositório não vai conseguir fazer push.
-- Crie uma branch com o nome que desejar;
-- Altere o arquivo README.md com as informações necessárias para executar o seu teste (comandos, migrations, seeds, etc);
-- Depois de finalizado, envie-nos o pull request;
-
+# Verifique se a aplicação está rodando na url:
+```sh
+http://localhost:8080
+```
