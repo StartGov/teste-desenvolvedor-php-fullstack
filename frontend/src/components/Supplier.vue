@@ -471,7 +471,7 @@ export default {
         numero:this.supplier.numero,
       }
       axios
-          .post('/suplliers',body)
+          .post('/suppliers',body)
           .then(() => {
             this.reset()
             this.suppliers()
@@ -483,13 +483,22 @@ export default {
             });
           })
           .catch(error => {
-            console.log(error)
+            const errorMessage = this.FormatMessageError(error.response.data.errors)
             Swal.fire({
               icon: "error",
               title: "Oops...",
-              text: `Algo deu errado: ${error.response.data} ou não encontrado`,
+              text: errorMessage,
             });
           })
+    },
+    FormatMessageError(errors){
+      let errorMessage = "Erro(s) encontrado(s):\n"
+      for (const field in errors) {
+        if (Object.prototype.hasOwnProperty.call(errors, field)) {
+          errorMessage += `${errors[field][0]}\n`
+        }
+      }
+      return errorMessage
     },
   },
 }
