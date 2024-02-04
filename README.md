@@ -1,8 +1,15 @@
 ### Desafio PHP FullStack
 
 
-# Para resolver o desafio foi utilizado laravel versão 10, vue versão 2, MYSQL, bootrap-vue
-
+# Para resolver o desafio foi utilizado laravel versão 10, vue versão 2, MYSQL, bootrap-vue.
+# O Projeto possui as seguintes funcionalidades:
+- Listagem de fornecedores com paginação, filtro e ordenação
+- Cadastro e atualização de fornecedores, sendo possível cadastrar/atualizar ao pesquisar por cnpj
+- Deletar fornecedores
+# Pontos de Melhoria/Adição
+- Fluxo de login (autenticação)
+- Cache na listagem de fornecedores para otimizar o desempenho
+- Melhorar o layout do frontend
 
 # Para começar, siga o tutorial abaixo:
 # Clone o projeto
