@@ -170,8 +170,13 @@
               id="input-2"
               v-model="supplier.nome_fantasia"
               placeholder="Enter nome fantasia"
+              :state="validationNomeFantansia"
               required
-          ></b-form-input>
+          >
+          </b-form-input>
+          <b-form-invalid-feedback :state="validationNomeFantansia">
+            Your Name must be 1-254 characters long.
+          </b-form-invalid-feedback>
         </b-form-group>
 
         <b-form-group
@@ -311,15 +316,15 @@ export default {
           })
     },
     validationCpfCnpj() {
-      if (this.supplier.cpf_cnpj.length === 0) {
-        return null
-      }
       const value = this.supplier.cpf_cnpj.replace(/[^\d]+/g, '')
       const isCpf = value.length === 11
       const isCnpj = value.length === 14
 
       return isCpf || isCnpj
-    }
+    },
+    validationNomeFantansia() {
+      return this.supplier.nome_fantasia.length > 0 && this.supplier.nome_fantasia.length <= 255
+    },
   },
   created() {
     this.getSuppliers()
