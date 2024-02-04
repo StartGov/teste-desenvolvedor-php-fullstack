@@ -101,6 +101,7 @@
               size="sm"
           >
             <b-icon
+                v-b-tooltip.hover="'Edit Supplier'"
                 class="pe-auto"
                 icon="gear-fill"
                 aria-hidden="true"
@@ -108,6 +109,7 @@
             />
           </b-button>
           <b-button
+              v-b-tooltip.hover="'Delete Supplier'"
               class="pe-auto"
               variant="outline-*"
               size="sm"
