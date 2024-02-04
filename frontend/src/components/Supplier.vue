@@ -151,10 +151,14 @@
           <b-form-input
               id="input-1"
               v-model="supplier.cpf_cnpj"
-              type="email"
               placeholder="Enter cpf or cnpj"
+              :state="validationCpfCnpj"
               required
-          ></b-form-input>
+          >
+          </b-form-input>
+          <b-form-invalid-feedback :state="validationCpfCnpj">
+            Your CPF/CNPJ must be 11-14 characters long.
+          </b-form-invalid-feedback>
         </b-form-group>
 
         <b-form-group
@@ -249,6 +253,7 @@ import {
   BIcon,
   BModal,
   BForm,
+  BFormInvalidFeedback,
 } from 'bootstrap-vue'
 import Swal from 'sweetalert2'
 import axios from '../axios'
@@ -267,6 +272,7 @@ export default {
     BIcon,
     BModal,
     BForm,
+    BFormInvalidFeedback,
   },
   data() {
     return {
@@ -303,6 +309,16 @@ export default {
           .map(f => {
             return { text: f.label, value: f.key }
           })
+    },
+    validationCpfCnpj() {
+      if (this.supplier.cpf_cnpj.length === 0) {
+        return null
+      }
+      const value = this.supplier.cpf_cnpj.replace(/[^\d]+/g, '')
+      const isCpf = value.length === 11
+      const isCnpj = value.length === 14
+
+      return isCpf || isCnpj
     }
   },
   created() {
