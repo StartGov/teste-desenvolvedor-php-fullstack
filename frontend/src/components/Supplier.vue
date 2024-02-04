@@ -260,6 +260,7 @@
             class="mt-2"
             type="reset"
             variant="warning"
+            @click="reset"
         >
           Reset
         </b-button>
@@ -419,12 +420,7 @@ export default {
 
     onReset(event) {
       event.preventDefault()
-      this.supplier.cpf_cnpj = ''
-      this.supplier.nome_fantasia = ''
-      this.supplier.razao_social = ''
-      this.supplier.contato = ''
-      this.supplier.endereco = ''
-      this.supplier.numero = ''
+      this.reset()
       this.showForm = false
       this.$nextTick(() => {
         this.showForm = true
@@ -452,6 +448,14 @@ export default {
               text: `Algo deu errado: ${error.response.data[0].message} ou não encontrado`,
             });
           })
+    },
+    reset(){
+      this.supplier.cpf_cnpj = ''
+      this.supplier.nome_fantasia = ''
+      this.supplier.razao_social = ''
+      this.supplier.contato = ''
+      this.supplier.endereco = ''
+      this.supplier.numero = ''
     },
   },
 }
