@@ -139,7 +139,96 @@
         cancel-title="Cancel"
         no-close-on-backdrop
     >
+      <b-form
+          @reset="onReset"
+          v-if="showForm"
+      >
+        <b-form-group
+            id="input-group-1"
+            label="CPF/CNPJ:"
+            label-for="input-1"
+        >
+          <b-form-input
+              id="input-1"
+              v-model="supplier.cpf_cnpj"
+              type="email"
+              placeholder="Enter cpf or cnpj"
+              required
+          ></b-form-input>
+        </b-form-group>
 
+        <b-form-group
+            id="input-group-2"
+            label="Nome Fantasia:"
+            label-for="input-2"
+        >
+          <b-form-input
+              id="input-2"
+              v-model="supplier.nome_fantasia"
+              placeholder="Enter nome fantasia"
+              required
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group
+            id="input-group-2"
+            label="Razão Social:"
+            label-for="input-2"
+        >
+          <b-form-input
+              id="input-2"
+              v-model="supplier.razao_social"
+              placeholder="Enter razao social"
+              required
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group
+            id="input-group-2"
+            label="Contato:"
+            label-for="input-2"
+        >
+          <b-form-input
+              id="input-2"
+              v-model="supplier.contato"
+              placeholder="Enter Contato"
+              required
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group
+            id="input-group-2"
+            label="Endereço:"
+            label-for="input-2"
+        >
+          <b-form-input
+              id="input-2"
+              v-model="supplier.endereco"
+              placeholder="Enter Endereço"
+              required
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group
+            id="input-group-2"
+            label="Número:"
+            label-for="input-2"
+        >
+          <b-form-input
+              id="input-2"
+              v-model="supplier.numero"
+              placeholder="Enter Número"
+              required
+          ></b-form-input>
+        </b-form-group>
+        <b-button
+            class="mt-2"
+            type="reset"
+            variant="warning"
+        >
+          Reset
+        </b-button>
+      </b-form>
     </b-modal>
   </div>
 </template>
@@ -159,6 +248,7 @@ import {
   BButton,
   BIcon,
   BModal,
+  BForm,
 } from 'bootstrap-vue'
 import Swal from 'sweetalert2'
 import axios from '../axios'
@@ -176,6 +266,7 @@ export default {
     BButton,
     BIcon,
     BModal,
+    BForm,
   },
   data() {
     return {
@@ -194,6 +285,15 @@ export default {
       sortDirection: 'asc',
       filter: null,
       filterOn: [],
+      supplier: {
+        cpf_cnpj: '',
+        nome_fantasia: '',
+        razao_social: '',
+        contato: '',
+        endereco: '',
+        numero: '',
+      },
+      showForm: true,
     }
   },
   computed: {
@@ -251,6 +351,20 @@ export default {
               })
 
         }
+      })
+    },
+
+    onReset(event) {
+      event.preventDefault()
+      this.supplier.cpf_cnpj = ''
+      this.supplier.nome_fantasia = ''
+      this.supplier.razao_social = ''
+      this.supplier.contato = ''
+      this.supplier.endereco = ''
+      this.supplier.numero = ''
+      this.showForm = false
+      this.$nextTick(() => {
+        this.showForm = true
       })
     }
   },
