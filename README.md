@@ -1,5 +1,10 @@
 ### Desafio PHP FullStack
 
+
+# Para resolver o desafio foi utilizado laravel versão 10, vue versão 2, MYSQL, bootrap-vue
+
+
+# Para começar, siga o tutorial abaixo:
 # Clone o projeto
 
 # Para rodar o projeto, siga os passos que foram divididos em duas etapas:
@@ -76,7 +81,10 @@ php artisan test
 ```sh
 vendor/bin/phpstan analyze
 ```
-
+# Coleção publica dos endpoints:
+```sh
+https://www.postman.com/ivovilar1/workspace/supplierapi/collection/21873994-71746498-4751-4022-aefb-12458ef2603d
+```
 # Frontend ---------------------:
 
 # Verifique se você está na pasta do frontend digitando o comando:
