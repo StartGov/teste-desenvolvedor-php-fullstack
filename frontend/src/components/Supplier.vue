@@ -2,55 +2,61 @@
   <div>
     <b-container fluid>
       <b-row>
-        <b-row align-h="start">
-          <b-col cols="2">
-            <b-form-group
-                label="Filter"
-                label-for="filter-input"
-                label-cols-sm="3"
-                label-align-sm="right"
-                label-size="sm"
-                class="mb-0"
-            >
-              <b-input-group size="sm">
-                <b-form-input
-                    id="filter-input"
-                    v-model="filter"
-                    type="search"
-                    placeholder="Type to Search"
-                ></b-form-input>
+        <b-col md="4">
+          <b-row>
+            <b-col cols="6">
+              <b-form-group
+                  label="Filter"
+                  label-for="filter-input"
+                  label-cols-sm="3"
+                  label-align-sm="right"
+                  label-size="sm"
+                  class="mb-0"
+              >
+                <b-input-group size="sm">
+                  <b-form-input
+                      id="filter-input"
+                      v-model="filter"
+                      type="search"
+                      placeholder="Type to Search"
+                  >
+                  </b-form-input>
 
-                <b-input-group-append>
-                  <b-button
-                      class="pe-auto"
-                      variant="danger"
-                      :disabled="!filter"
-                      @click="filter = ''">
-                    Clear
-                  </b-button>
-                </b-input-group-append>
-              </b-input-group>
-            </b-form-group>
+                  <b-input-group-append>
+                    <b-button
+                        class="pe-auto"
+                        variant="danger"
+                        :disabled="!filter"
+                        @click="filter = ''">
+                      Clear
+                    </b-button>
+                  </b-input-group-append>
+                </b-input-group>
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <b-form-group
+                  label="Initial sort"
+                  label-for="initial-sort-select"
+                  label-cols-sm="3"
+                  label-align-sm="right"
+                  label-size="sm"
+                  class="mb-0"
+              >
+                <b-form-select
+                    class="mt-2"
+                    id="initial-sort-select"
+                    v-model="sortDirection"
+                    :options="['asc', 'desc', 'last']"
+                    size="sm"
+                ></b-form-select>
+              </b-form-group>
+            </b-col>
+          </b-row>
           </b-col>
-          <b-col cols="2">
-            <b-form-group
-                label="Initial sort"
-                label-for="initial-sort-select"
-                label-cols-sm="3"
-                label-align-sm="right"
-                label-size="sm"
-                class="mb-0"
-            >
-              <b-form-select
-                  class="mt-2"
-                  id="initial-sort-select"
-                  v-model="sortDirection"
-                  :options="['asc', 'desc', 'last']"
-                  size="sm"
-              ></b-form-select>
-            </b-form-group>
-          </b-col>
-        </b-row>
+        <b-col md="4" offset-md="4">
+          <b-button/>
+        </b-col>
       </b-row>
       <b-table
         :busy="isBusy"
