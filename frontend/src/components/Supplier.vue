@@ -34,22 +34,40 @@
                 </b-input-group>
               </b-form-group>
             </b-col>
-            <b-col>
+            <b-col lg="6" class="my-1">
               <b-form-group
-                  label="Initial sort"
-                  label-for="initial-sort-select"
+                  label="Sort"
+                  label-for="sort-by-select"
                   label-cols-sm="3"
                   label-align-sm="right"
                   label-size="sm"
                   class="mb-0"
+                  v-slot="{ ariaDescribedby }"
               >
-                <b-form-select
-                    class="mt-2"
-                    id="initial-sort-select"
-                    v-model="sortDirection"
-                    :options="['asc', 'desc', 'last']"
-                    size="sm"
-                ></b-form-select>
+                <b-input-group size="sm">
+                  <b-form-select
+                      id="sort-by-select"
+                      v-model="sortBy"
+                      :options="sortOptions"
+                      :aria-describedby="ariaDescribedby"
+                      class="w-75"
+                  >
+                    <template #first>
+                      <option value="">-- none --</option>
+                    </template>
+                  </b-form-select>
+
+                  <b-form-select
+                      v-model="sortDesc"
+                      :disabled="!sortBy"
+                      :aria-describedby="ariaDescribedby"
+                      size="sm"
+                      class="w-25"
+                  >
+                    <option :value="false">Asc</option>
+                    <option :value="true">Desc</option>
+                  </b-form-select>
+                </b-input-group>
               </b-form-group>
             </b-col>
           </b-row>
@@ -321,9 +339,10 @@ export default {
     return {
       suppliers: [],
       fields: [
-        { key: 'id', label: 'ID' },
-        { key: 'cpf_cnpj', label: 'CPF/CNPJ' },
-        { key: 'actions', label: 'Actions' }
+        { key: 'id', label: 'ID', sortable: true },
+        { key: 'nome_fantasia', label: 'Nome Fantasia', sortable: true },
+        { key: 'cpf_cnpj', label: 'CPF/CNPJ', sortable: true },
+        { key: 'actions', label: 'Actions', sortable: true }
       ],
       perPage: 10,
       currentPage: 1,
