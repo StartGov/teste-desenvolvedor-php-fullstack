@@ -175,7 +175,7 @@
           >
           </b-form-input>
           <b-form-invalid-feedback :state="validationNomeFantansia">
-            Your Name must be 1-254 characters long.
+            Your Nome Fantasia must be 1-254 characters long.
           </b-form-invalid-feedback>
         </b-form-group>
 
@@ -188,8 +188,12 @@
               id="input-2"
               v-model="supplier.razao_social"
               placeholder="Enter razao social"
+              :state="validationRazaoSocial"
               required
           ></b-form-input>
+          <b-form-invalid-feedback :state="validationRazaoSocial">
+            Your Razão Social must be 1-254 characters long.
+          </b-form-invalid-feedback>
         </b-form-group>
 
         <b-form-group
@@ -201,8 +205,12 @@
               id="input-2"
               v-model="supplier.contato"
               placeholder="Enter Contato"
+              :state="validationContato"
               required
           ></b-form-input>
+          <b-form-invalid-feedback :state="validationContato">
+            Your Contato must be valid (xx)xxxxxxxxx or xxxxxxxxxxx.
+          </b-form-invalid-feedback>
         </b-form-group>
 
         <b-form-group
@@ -214,8 +222,12 @@
               id="input-2"
               v-model="supplier.endereco"
               placeholder="Enter Endereço"
+              :state="validationEndereco"
               required
           ></b-form-input>
+          <b-form-invalid-feedback :state="validationEndereco">
+            Your Endereço must be 1-254 characters long.
+          </b-form-invalid-feedback>
         </b-form-group>
 
         <b-form-group
@@ -227,8 +239,12 @@
               id="input-2"
               v-model="supplier.numero"
               placeholder="Enter Número"
+              :state="validationNumero"
               required
           ></b-form-input>
+          <b-form-invalid-feedback :state="validationNumero">
+            Your Número must be 1-254 characters long.
+          </b-form-invalid-feedback>
         </b-form-group>
         <b-button
             class="mt-2"
@@ -324,6 +340,18 @@ export default {
     },
     validationNomeFantansia() {
       return this.supplier.nome_fantasia.length > 0 && this.supplier.nome_fantasia.length <= 255
+    },
+    validationRazaoSocial() {
+      return this.supplier.razao_social.length > 0 && this.supplier.razao_social.length <= 255
+    },
+    validationContato() {
+      return this.supplier.nome_fantasia.length > 0 && this.supplier.nome_fantasia.length <= 255
+    },
+    validationEndereco() {
+      return this.supplier.endereco.length > 0 && this.supplier.endereco.length <= 255
+    },
+    validationNumero() {
+      return this.supplier.numero.length > 0 && this.supplier.numero.length <= 255
     },
   },
   created() {
