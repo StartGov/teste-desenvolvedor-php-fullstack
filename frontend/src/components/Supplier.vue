@@ -59,6 +59,15 @@
         :fields="fields"
         :per-page="0"
         :current-page="currentPage"
+        :filter="filter"
+        :filter-included-fields="filterOn"
+        :sort-by.sync="sortBy"
+        :sort-desc.sync="sortDesc"
+        :sort-direction="sortDirection"
+        stacked="md"
+        show-empty
+        small
+        @filtered="onFiltered"
       >
         <template #table-busy>
           <div class="text-center text-danger my-2">
@@ -178,6 +187,10 @@ export default {
     pageChanged() {
       this.isBusy = true
       this.getSuppliers()
+    },
+    onFiltered(filteredItems) {
+      this.totalRows = filteredItems.length
+      this.currentPage = 1
     },
   },
 }
