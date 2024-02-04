@@ -130,8 +130,15 @@
         align="center"
       />
     </b-container>
-    <b-modal id="newsupplier" title="BootstrapVue">
-      <p class="my-4">Hello from modal!</p>
+    <b-modal
+        id="newsupplier"
+        title="New Supplier"
+        size="lg"
+        ok-variant="primary"
+        cancel-variant="danger"
+        cancel-title="Cancel"
+    >
+
     </b-modal>
   </div>
 </template>
