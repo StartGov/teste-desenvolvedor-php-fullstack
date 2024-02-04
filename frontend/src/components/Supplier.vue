@@ -474,7 +474,8 @@ export default {
           .post('/suppliers',body)
           .then(() => {
             this.reset()
-            this.suppliers()
+            this.isBusy = true
+            this.getSuppliers()
             Swal.fire({
               icon: "success",
               title: "New supplier add.",
