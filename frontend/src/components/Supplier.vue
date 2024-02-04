@@ -58,7 +58,7 @@
           <b-button
               class="pe-auto"
               variant="primary"
-              v-b-modal.newsupplier
+              v-b-modal.supplier
           >
             <b-icon
                 class="pe-auto"
@@ -131,12 +131,13 @@
       />
     </b-container>
     <b-modal
-        id="newsupplier"
-        title="New Supplier"
+        id="supplier"
+        title="Supplier"
         size="lg"
         ok-variant="primary"
         cancel-variant="danger"
         cancel-title="Cancel"
+        no-close-on-backdrop
     >
 
     </b-modal>
