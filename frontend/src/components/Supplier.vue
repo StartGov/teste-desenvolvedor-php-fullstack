@@ -159,6 +159,7 @@
             </b-form-input>
               <b-input-group-prepend is-text>
                   <b-icon
+                      v-b-tooltip.hover="'Pesquisar CPF/CNPJ'"
                       icon="search"
                       style="cursor:pointer"
                       @click="searchSupplier()"
@@ -284,6 +285,7 @@ import {
   BModal,
   BForm,
   BFormInvalidFeedback,
+  VBTooltip,
 } from 'bootstrap-vue'
 import Swal from 'sweetalert2'
 import axios from '../axios'
@@ -303,6 +305,9 @@ export default {
     BModal,
     BForm,
     BFormInvalidFeedback,
+  },
+  directives:{
+    'b-tooltip': VBTooltip
   },
   data() {
     return {
