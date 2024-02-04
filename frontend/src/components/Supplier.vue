@@ -77,7 +77,6 @@
         </template>
 
         <template #cell(actions)="row">
-          {{ row.item.id}}
           <b-button
               class="pe-auto"
               variant="outline-*"
@@ -94,6 +93,7 @@
               class="pe-auto"
               variant="outline-*"
               size="sm"
+              @click="deleteSupplier(row.item.id)"
           >
             <b-icon
                 icon="trash-fill"
@@ -130,6 +130,7 @@ import {
   BButton,
   BIcon,
 } from 'bootstrap-vue'
+import Swal from 'sweetalert2'
 import axios from '../axios'
 export default {
   components: {
@@ -192,6 +193,35 @@ export default {
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
+    deleteSupplier(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          axios
+              .delete(`suppliers/${id}`)
+              .then(()=> {
+                this.isBusy = true
+                this.getSuppliers()
+                Swal.fire({
+                  title: "Deleted!",
+                  text: "Supplier deleted.",
+                  icon: "success"
+                })
+              })
+              .catch(error => {
+                console.error(error)
+              })
+
+        }
+      })
+    }
   },
 }
 </script>
