@@ -22,6 +22,7 @@
 
                 <b-input-group-append>
                   <b-button
+                      class="pe-auto"
                       variant="danger"
                       :disabled="!filter"
                       @click="filter = ''">
@@ -65,6 +66,34 @@
             <strong>Loading...</strong>
           </div>
         </template>
+
+        <template #cell(actions)="row">
+          {{ row.item.id}}
+          <b-button
+              class="pe-auto"
+              variant="outline-*"
+              size="sm"
+          >
+            <b-icon
+                class="pe-auto"
+                icon="gear-fill"
+                aria-hidden="true"
+                variant="info"
+            />
+          </b-button>
+          <b-button
+              class="pe-auto"
+              variant="outline-*"
+              size="sm"
+          >
+            <b-icon
+                icon="trash-fill"
+                aria-hidden="true"
+                variant="danger"
+            />
+          </b-button>
+        </template>
+
       </b-table>
       <b-pagination
         v-model="currentPage"
@@ -90,6 +119,7 @@ import {
   BInputGroup,
   BInputGroupAppend,
   BButton,
+  BIcon,
 } from 'bootstrap-vue'
 import axios from '../axios'
 export default {
@@ -104,6 +134,7 @@ export default {
     BInputGroup,
     BInputGroupAppend,
     BButton,
+    BIcon,
   },
   data() {
     return {
@@ -111,6 +142,7 @@ export default {
       fields: [
         { key: 'id', label: 'ID' },
         { key: 'cpf_cnpj', label: 'CPF/CNPJ' },
+        { key: 'actions', label: 'Actions' }
       ],
       perPage: 10,
       currentPage: 1,
