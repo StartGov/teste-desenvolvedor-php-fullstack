@@ -55,7 +55,19 @@
           </b-row>
           </b-col>
         <b-col md="4" offset-md="4">
-          <b-button/>
+          <b-button
+              class="pe-auto"
+              variant="primary"
+              v-b-modal.newsupplier
+          >
+            <b-icon
+                class="pe-auto"
+                icon="plus"
+                aria-hidden="true"
+                variant="info"
+            />
+            Supplier
+          </b-button>
         </b-col>
       </b-row>
       <b-table
@@ -118,6 +130,9 @@
         align="center"
       />
     </b-container>
+    <b-modal id="newsupplier" title="BootstrapVue">
+      <p class="my-4">Hello from modal!</p>
+    </b-modal>
   </div>
 </template>
 
@@ -135,6 +150,7 @@ import {
   BInputGroupAppend,
   BButton,
   BIcon,
+  BModal,
 } from 'bootstrap-vue'
 import Swal from 'sweetalert2'
 import axios from '../axios'
@@ -151,6 +167,7 @@ export default {
     BInputGroupAppend,
     BButton,
     BIcon,
+    BModal,
   },
   data() {
     return {
