@@ -99,6 +99,7 @@
               class="pe-auto"
               variant="outline-*"
               size="sm"
+              @click="editSupplier(row.item)"
           >
             <b-icon
                 v-b-tooltip.hover="'Edit Supplier'"
@@ -140,7 +141,8 @@
         cancel-variant="danger"
         cancel-title="Cancel"
         no-close-on-backdrop
-        @ok="storeSupplier"
+        :ok-title=" edit ? 'Update' : 'Store' "
+        @ok="edit ? updateSupplier() : storeSupplier()"
     >
       <b-form
           @reset="onReset"
@@ -339,6 +341,8 @@ export default {
         numero: '',
       },
       showForm: true,
+      edit: false,
+      supplierID: null,
     }
   },
   computed: {
@@ -464,14 +468,7 @@ export default {
       this.supplier.numero = ''
     },
     storeSupplier() {
-      const body = {
-        cpf_cnpj: this.formatCpfCnpj(this.supplier.cpf_cnpj),
-        nome_fantasia: this.supplier.nome_fantasia,
-        razao_social:this.supplier.razao_social,
-        contato: this.formatPhone(this.supplier.contato),
-        endereco: this.supplier.endereco,
-        numero:this.supplier.numero,
-      }
+      const body = this.getSuppliers()
       axios
           .post('/suppliers',body)
           .then(() => {
@@ -502,6 +499,48 @@ export default {
         }
       }
       return errorMessage
+    },
+    editSupplier(item){
+      this.edit = true
+      this.supplierID = item.id
+      this.supplier = item
+      this.$bvModal.show('supplier')
+    },
+    updateSupplier(){
+      const bodySupplier = this.getBodySupplier()
+      axios
+          .put(`/suppliers/${this.supplierID}`, bodySupplier)
+          .then(() => {
+            this.reset()
+            this.isBusy = true
+            this.edit = false
+            this.supplierID = null
+            this.getSuppliers()
+            Swal.fire({
+              icon: "success",
+              title: "Supplier updated.",
+              showConfirmButton: false,
+              timer: 1500
+            });
+          })
+          .catch(error => {
+            const errorMessage = this.FormatMessageError(error.response.data.errors)
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: errorMessage,
+            });
+          })
+    },
+    getBodySupplier(){
+      return {
+        cpf_cnpj: this.formatCpfCnpj(this.supplier.cpf_cnpj),
+        nome_fantasia: this.supplier.nome_fantasia,
+        razao_social:this.supplier.razao_social,
+        contato: this.formatPhone(this.supplier.contato),
+        endereco: this.supplier.endereco,
+        numero:this.supplier.numero,
+      }
     },
   },
 }
