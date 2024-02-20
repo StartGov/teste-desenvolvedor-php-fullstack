@@ -1,5 +1,5 @@
 <?php
-
+use app\http\Controllers\SupplierController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -54,6 +54,12 @@ Route::get('/test', function(){
 
     ];
 });
+
+Route::post('/suppliers', [SupplierController::class, 'store']);
+Route::put('/suppliers/{id}', [SupplierController::class, 'update']);
+Route::get('delete/{id}', [SupplierController::class, 'deleteSuppliers']);
+Route::get('/suppliers', [SupplierController::class, 'listSuppliers']);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
