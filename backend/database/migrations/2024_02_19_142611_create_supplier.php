@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('social_reason');
             $table->string('fantasy_name');
-            $table->string('contact');
-            $table->string('cnpj');
-            
-            $table->foreign('addres_id')->references('id')->on('address');
+            $table->string('contact')->unique();
+            $table->string('cnpj')->unique();
+            $table->foreignId('addres_id')->references('id')->on('address');
+            $table->dateTime('deleted_at', $precision = 0)->nullable();
             $table->timestamps();
         });
     }
