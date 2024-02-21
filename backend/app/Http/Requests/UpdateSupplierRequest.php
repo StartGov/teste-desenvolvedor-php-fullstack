@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSupplierRequest extends FormRequest
+class UpdateSupplierRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,13 +19,13 @@ class StoreSupplierRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array {
-    
+    public function rules(): array
+    {
         return [
             'social_reason' => 'required|string|max:255',
             'fantasy_name' => 'required|string',
             'contact' => 'required|string',
-            'cnpj' => "required|string|unique:supplier,cnpj",
+            'cnpj' => "required|string|unique:supplier,cnpj,".$this->id,
             'address.address' => 'required|string',
             'address.number' => 'required|string',
             'address.neighborhood' => 'required|string',
@@ -50,4 +50,5 @@ class StoreSupplierRequest extends FormRequest
             'address.cep.required' => 'O campo CEP é obrigatório.',
         ];  
     }
+
 }
