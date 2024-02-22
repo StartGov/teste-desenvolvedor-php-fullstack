@@ -1,0 +1,49 @@
+version: "3"
+services:
+  mysql:
+    container_name: container-mysql
+    image: "mysql:8.0"
+    working_dir: /application
+    volumes:
+      - "./backend:/application"
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+    ports:
+      - "8190:3306"
+    networks:
+      - app-network
+
+  webserver:
+    container_name: container-webserver
+    image: "nginx:alpine"
+    working_dir: /application
+    volumes:
+      - "./backend:/application"
+      - "./backend/docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf"
+    ports:
+      - "8188:80"
+    networks:
+      - app-network
+
+  php-fpm:
+    container_name: container-php
+    build: ./backend/docker/php-fpm
+    working_dir: /application
+    volumes:
+      - "./backend:/application"
+      - "./backend/docker/php-fpm/php-ini-overrides.ini:/etc/php/8.1/fpm/conf.d/99-overrides.ini"
+    networks:
+      - app-network
+
+  redis:
+    container_name: container-redis
+    image: "redis:alpine"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
