@@ -60,6 +60,8 @@ Route::put('/suppliers/{id}', [SupplierController::class, 'update']);
 Route::delete('/suppliers/{id}', [SupplierController::class, 'delete']);
 Route::get('/suppliers', [SupplierController::class, 'list']);
 
+Route::get('/suppliers/{id}', [SupplierController::class, 'find']);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

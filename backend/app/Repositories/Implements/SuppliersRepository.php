@@ -29,7 +29,7 @@ class SuppliersRepository implements SuppliersRepositoryInterface
     }
 
     public function findById($id){
-        return Supplier::findOrFail($id);
+        return Supplier::with('address')->findOrFail($id);
     }
 
     public function update($data, $id)

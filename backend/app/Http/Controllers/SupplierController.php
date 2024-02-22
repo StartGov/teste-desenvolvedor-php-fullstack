@@ -49,4 +49,10 @@ class SupplierController extends Controller {
     
         return response()->json($suppliers);
     }
+
+    public function find($id) {
+        $supplier = $this->suppliersRepository->findById($id);
+
+        return response()->json(['message' => 'Forcedor encontrado', 'supplier' => $supplier]);
+    }
 }
