@@ -73,3 +73,26 @@ Bem-vindo ao teste de desenvolvimento para a posição de Desenvolvedor PHP/Lara
 - Altere o arquivo README.md com as informações necessárias para executar o seu teste (comandos, migrations, seeds, etc);
 - Depois de finalizado, envie-nos o pull request;
 
+## Projeto usando docker. Para executar, rode os comandos abaixo.
+```bash
+# Clone o projeto
+$ git clone https://github.com/guilherf13/teste-desenvolvedor-php-fullstack.git
+# Execute os comandos
+$ cd teste-desenvolvedor-php-fullstack
+$ docker compose up -d --build
+$ docker exec app composer install 
+```
+## Configuração do .env
+```bash
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=root
+```
+## Criar a key e Rodar as migrations
+```bash
+$ docker exec app php artisan key:generate
+$ docker exec app php artisan migrate
+```
