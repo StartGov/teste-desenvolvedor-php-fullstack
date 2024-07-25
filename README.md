@@ -1,75 +1,78 @@
-[![](https://startgov.com.br/wp-content/uploads/2023/11/LOGO_VETOR.png)](https://www.startgov.com.br)
 
-# Nossa empresa
+# API de Fornecedores
 
-A StartGov é uma empresa que se dedica a criar soluções inovadoras focadas na gestão de contratações, especialmente voltadas para o setor público. A empresa oferece um conjunto de ferramentas destinadas a facilitar e otimizar processos burocráticos relacionados a licitações, contratações diretas, gestão de contratos, ordens de fornecimento e serviço, além do cadastro de fornecedores. Essas soluções visam aumentar a celeridade dos trâmites administrativos e permitir a implementação de fluxos e processos padronizados.
-
-# Conheça mais sobre a StartGov
-
-- Nosso Site - https://www.startgov.com.br/
-- Nosso Instagram - https://www.instagram.com/startgov/
-
-## Teste para Desenvolvedor PHP/Laravel e Vue.js
-
-Bem-vindo ao teste de desenvolvimento para a posição de Desenvolvedor PHP/Laravel e Vue.js. O objetivo deste teste é desenvolver uma plataforma para o cadastro de fornecedores, permitindo a busca por CNPJ ou CPF, utilizando Laravel no backend e Vue.js no frontend.
-
-## Descrição do Projeto
-
-### Backend (API Laravel):
-
-#### CRUD de Fornecedores:
-
-- **Criar Fornecedor:**
-  - Permita o cadastro de fornecedores usando CNPJ ou CPF, incluindo informações como nome/nome da empresa, contato, endereço, etc.
-  - Valide a integridade e o formato dos dados, como o formato correto de CNPJ/CPF e a obrigatoriedade de campos.
-
-- **Editar Fornecedor:**
-  - Facilite a atualização das informações de fornecedores, mantendo a validação dos dados.
-
-- **Excluir Fornecedor:**
-  - Possibilite a remoção segura de fornecedores.
-
-- **Listar Fornecedores:**
-  - Apresente uma lista paginada de fornecedores, com filtragem e ordenação.
-
-#### Migrations:
-
-- Utilize migrations do Laravel para definir a estrutura do banco de dados, garantindo uma boa organização e facilidade de manutenção.
-
-### Frontend (Vue.js):
-
-- Desenvolva interfaces para todas as operações do CRUD, com validações e feedback visual adequado.
+Esta é uma API simples para gerenciamento de fornecedores, incluindo funcionalidades CRUD (Create, Read, Update, Delete), validação de CNPJ utilizando a API Brasil e funcionalidades de filtragem, paginação e ordenação dos fornecedores cadastrados.
 
 ## Requisitos
 
-### Backend:
-- Implementar busca por CNPJ na [BrasilAPI](https://brasilapi.com.br/docs#tag/CNPJ/paths/~1cnpj~1v1~1{cnpj}/get) ou qualquer outro endpoint público.
+- PHP 8.1
+- Composer versão 2.6.5
+- Docker e Docker Compose versão 27.0.3
+- Git
 
-## Tecnologias a serem utilizadas
-- HTML
-- CSS
-- VueJS 2.x ou superior
-- Framework Laravel (PHP) 9.x ou superior
-- MySQL ou Postgres
-- Pode utilizar Bootstrap ou qualquer outro UI Design
+## Instalação
 
-## Critérios de Avaliação
+1. Clone o repositório:
 
-- Adesão aos requisitos funcionais e técnicos.
-- Qualidade do código, incluindo organização, padrões de desenvolvimento e segurança.
-- Usabilidade e design das interfaces de usuário.
-- Documentação do projeto, incluindo um README detalhado com instruções de instalação e operação.
+   ```bash
+   git clone https://github.com/Joallisson/start-gov-crud-fornecedores.git
+   ```
 
-## Bônus
+2. Entre na pasta do projeto e troque para a branch correta:
 
-- Implementação de testes automatizados.
-- Dockerização do ambiente de desenvolvimento.
-- Implementação de cache para otimizar o desempenho.
+   ```bash
+   cd start-gov-crud-fornecedores
+   git checkout feature/CRUD-Fornecedores
+   ```
 
-## Entrega
+3. Instale as dependências do projeto:
 
-- Para iniciar o teste, faça um fork deste repositório; Se você apenas clonar o repositório não vai conseguir fazer push.
-- Crie uma branch com o nome que desejar;
-- Altere o arquivo README.md com as informações necessárias para executar o seu teste (comandos, migrations, seeds, etc);
-- Depois de finalizado, envie-nos o pull request;
+   ```bash
+   composer install
+   ```
 
+4. Inicie os containers Docker:
+
+   ```bash
+   ./vendor/bin/sail up -d
+   ```
+
+5. Execute as migrações do banco de dados:
+
+   ```bash
+   ./vendor/bin/sail artisan migrate
+   ```
+
+## Uso
+
+A API possui endpoints para a criação, leitura, atualização e exclusão de fornecedores. Além disso, permite a validação de CNPJ usando a API Brasil e a filtragem, paginação e ordenação dos fornecedores cadastrados.
+
+### Endpoints
+
+- `GET /api/providers` - Lista os fornecedores com suporte a paginação, filtragem por nome ou CNPJ, e ordenação dinâmica.
+- `POST /api/providers` - Cria um novo fornecedor com validação de CNPJ.
+- `GET /api/providers/{id}` - Exibe os detalhes de um fornecedor específico.
+- `PUT /api/providers/{id}` - Atualiza os dados de um fornecedor específico.
+- `DELETE /api/providers/{id}` - Exclui um fornecedor específico.
+
+### Parâmetros de Filtragem e Ordenação
+
+- `name` - Filtra fornecedores pelo nome.
+- `cnpj` - Filtra fornecedores pelo CNPJ.
+- `sort_field` - Campo para ordenação (ex: `name`, `cnpj`).
+- `sort_direction` - Direção da ordenação (`ASC` ou `DESC`).
+- `per_page` - Número de fornecedores por página.
+
+### Exemplo de Requisição
+
+```bash
+curl -X GET "http://localhost/api/providers?name=Joao&sort_field=name&sort_direction=ASC&per_page=10"
+```
+
+## Contribuição
+
+Sinta-se à vontade para abrir issues e enviar pull requests. Para mudanças maiores, por favor, abra uma issue primeiro para discutir o que você gostaria de mudar.
+
+## Licença
+
+Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
