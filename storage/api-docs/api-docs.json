@@ -1,0 +1,271 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "StartGov Supplier API",
+        "description": "API for managing suppliers (test challenge)",
+        "contact": {
+            "name": "Lucas Amorim",
+            "email": "lucas@email.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/suppliers": {
+            "get": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "summary": "List all suppliers",
+                "operationId": "6207e57dd1dcd1d6e7125fe144607196",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search by company name or document number",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of suppliers",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Supplier"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "summary": "Create a new supplier",
+                "operationId": "dc5dc7ccb140cd5b81cab6f42b396691",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Supplier"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Supplier created successfully"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/suppliers/{id}": {
+            "get": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "summary": "Get a single supplier",
+                "operationId": "7fc447855461518ce36bdeb5a44310a3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the supplier",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Supplier data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Supplier"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "summary": "Update a supplier",
+                "operationId": "22145931fdda85497cf90c73c5406747",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Supplier ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Supplier"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Supplier updated"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "summary": "Delete a supplier",
+                "operationId": "2fe04361f0f1581a9f5dbb4094b634b2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Supplier ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted successfully"
+                    },
+                    "500": {
+                        "description": "Error deleting supplier"
+                    }
+                }
+            }
+        },
+        "/api/suppliers/fetch-cnpj/{cnpj}": {
+            "get": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "summary": "Fetch supplier data from BrasilAPI by CNPJ",
+                "operationId": "cd85c2d1a21d2de6b71a319214ef3e20",
+                "parameters": [
+                    {
+                        "name": "cnpj",
+                        "in": "path",
+                        "description": "CNPJ number (only digits)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "\\d{14}"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CNPJ found"
+                    },
+                    "404": {
+                        "description": "CNPJ not found"
+                    },
+                    "422": {
+                        "description": "Invalid CNPJ format"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Supplier": {
+                "required": [
+                    "document_number",
+                    "company_name"
+                ],
+                "properties": {
+                    "document_number": {
+                        "type": "string",
+                        "example": "12345678000195"
+                    },
+                    "company_name": {
+                        "type": "string",
+                        "example": "Empresa Exemplo Ltda"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "empresa@exemplo.com"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "(31) 99999-8888"
+                    },
+                    "zipcode": {
+                        "type": "string",
+                        "example": "30130-000"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "Rua Exemplo"
+                    },
+                    "address_number": {
+                        "type": "string",
+                        "example": "123"
+                    },
+                    "address_complement": {
+                        "type": "string",
+                        "example": "sala 5"
+                    },
+                    "neighborhood": {
+                        "type": "string",
+                        "example": "Centro"
+                    },
+                    "city": {
+                        "type": "string",
+                        "example": "Belo Horizonte"
+                    },
+                    "state": {
+                        "type": "string",
+                        "example": "MG"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Suppliers",
+            "description": "Endpoints for managing suppliers"
+        }
+    ]
+}

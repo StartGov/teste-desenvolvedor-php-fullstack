@@ -1,75 +1,100 @@
-[![](https://startgov.com.br/wp-content/uploads/2023/11/LOGO_VETOR.png)](https://www.startgov.com.br)
+# 🧾 StartGov - Supplier Management Platform
 
-# Nossa empresa
+Este projeto é uma aplicação fullstack construída com **Laravel 9** no backend e **Vue 3 + Vite + TailwindCSS** no frontend, com foco em cadastro e gestão de fornecedores. A documentação da API está disponível via **Swagger**.
 
-A StartGov é uma empresa que se dedica a criar soluções inovadoras focadas na gestão de contratações, especialmente voltadas para o setor público. A empresa oferece um conjunto de ferramentas destinadas a facilitar e otimizar processos burocráticos relacionados a licitações, contratações diretas, gestão de contratos, ordens de fornecimento e serviço, além do cadastro de fornecedores. Essas soluções visam aumentar a celeridade dos trâmites administrativos e permitir a implementação de fluxos e processos padronizados.
+---
 
-# Conheça mais sobre a StartGov
+## 🚀 Tecnologias
 
-- Nosso Site - https://www.startgov.com.br/
-- Nosso Instagram - https://www.instagram.com/startgov/
+- PHP 8.3 / Laravel 9.x
+- Laravel Sail (Docker)
+- MySQL
+- Vue 3 (Composition API)
+- Vite + TailwindCSS
+- Swagger (l5-swagger)
+- Axios
+- i18n
 
-## Teste para Desenvolvedor PHP/Laravel e Vue.js
+---
 
-Bem-vindo ao teste de desenvolvimento para a posição de Desenvolvedor PHP/Laravel e Vue.js. O objetivo deste teste é desenvolver uma plataforma para o cadastro de fornecedores, permitindo a busca por CNPJ ou CPF, utilizando Laravel no backend e Vue.js no frontend.
+## 📦 Requisitos
 
-## Descrição do Projeto
+- Docker e Docker Compose
+- Node.js 20+
+- Composer 2+
 
-### Backend (API Laravel):
+---
 
-#### CRUD de Fornecedores:
+## ⚙️ Instalação
 
-- **Criar Fornecedor:**
-  - Permita o cadastro de fornecedores usando CNPJ ou CPF, incluindo informações como nome/nome da empresa, contato, endereço, etc.
-  - Valide a integridade e o formato dos dados, como o formato correto de CNPJ/CPF e a obrigatoriedade de campos.
+### 🔧 1. Clonar o repositório
 
-- **Editar Fornecedor:**
-  - Facilite a atualização das informações de fornecedores, mantendo a validação dos dados.
+```bash
+git clone https://github.com/seu-usuario/teste-desenvolvedor-php-fullstack.git
+cd teste-desenvolvedor-php-fullstack
+```
 
-- **Excluir Fornecedor:**
-  - Possibilite a remoção segura de fornecedores.
+### 🐳 2. Subir containers com Sail
 
-- **Listar Fornecedores:**
-  - Apresente uma lista paginada de fornecedores, com filtragem e ordenação.
+```bash
+cp .env.example .env
+./vendor/bin/sail up -d
+./vendor/bin/sail artisan migrate
+./vendor/bin/sail artisan db:seed
+```
 
-#### Migrations:
+> O backend estará disponível em: http://localhost
 
-- Utilize migrations do Laravel para definir a estrutura do banco de dados, garantindo uma boa organização e facilidade de manutenção.
+---
 
-### Frontend (Vue.js):
+## 🖥️ Rodar Frontend
 
-- Desenvolva interfaces para todas as operações do CRUD, com validações e feedback visual adequado.
+Abra a pasta `supplier-frontend`:
 
-## Requisitos
+```bash
+cd supplier-frontend
+npm install
+npm run dev
+```
 
-### Backend:
-- Implementar busca por CNPJ na [BrasilAPI](https://brasilapi.com.br/docs#tag/CNPJ/paths/~1cnpj~1v1~1{cnpj}/get) ou qualquer outro endpoint público.
+> O frontend estará em: http://localhost:5173
 
-## Tecnologias a serem utilizadas
-- HTML
-- CSS
-- VueJS 2.x ou superior
-- Framework Laravel (PHP) 9.x ou superior
-- MySQL ou Postgres
-- Pode utilizar Bootstrap ou qualquer outro UI Design
+---
 
-## Critérios de Avaliação
+## 🔄 Estrutura dos diretórios
 
-- Adesão aos requisitos funcionais e técnicos.
-- Qualidade do código, incluindo organização, padrões de desenvolvimento e segurança.
-- Usabilidade e design das interfaces de usuário.
-- Documentação do projeto, incluindo um README detalhado com instruções de instalação e operação.
+```
+├── app/
+│   ├── Http/Controllers/Api/SupplierController.php
+│   ├── Interfaces/SupplierRepositoryInterface.php
+│   ├── Repositories/SupplierRepository.php
+│   ├── Http/Resources/SupplierResource.php
+│   └── Swagger/ (schemas + info OpenAPI)
+├── routes/api.php
+├── config/l5-swagger.php
+├── supplier-frontend/
+│   ├── views/SupplierIndex.vue
+│   ├── api/supplier.js
+│   └── main.js
+```
 
-## Bônus
+---
 
-- Implementação de testes automatizados.
-- Dockerização do ambiente de desenvolvimento.
-- Implementação de cache para otimizar o desempenho.
+## ✅ Funcionalidades
 
-## Entrega
+- CRUD completo de fornecedores
+- Busca por nome/documento com debounce
+- Busca de CNPJ via BrasilAPI
+- Internacionalização com i18n
+- Documentação Swagger
+- Tailwind UI responsiva
 
-- Para iniciar o teste, faça um fork deste repositório; Se você apenas clonar o repositório não vai conseguir fazer push.
-- Crie uma branch com o nome que desejar;
-- Altere o arquivo README.md com as informações necessárias para executar o seu teste (comandos, migrations, seeds, etc);
-- Depois de finalizado, envie-nos o pull request;
+---
 
+## 🧪 Testes
+
+```bash
+./vendor/bin/sail test
+```
+
+---
