@@ -1,0 +1,35 @@
+services:
+    laravelapp:
+        build:
+            context: .
+        container_name: laravelapp
+        ports:
+            - "8000:80"
+        volumes:
+            - .:/var/www/html
+            - ./apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
+            - ./xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+        depends_on:
+            - db
+        environment:
+            DB_CONNECTION: pgsql
+            DB_HOST: db
+            DB_PORT: 5432
+            DB_DATABASE: startgov
+            DB_USERNAME: laravel
+            DB_PASSWORD: secret
+
+    db:
+        image: postgres:15
+        container_name: db
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_USER: laravel
+            POSTGRES_PASSWORD: secret
+            POSTGRES_DB: startgov
+        volumes:
+            - db-data:/var/lib/postgresql/data
+
+volumes:
+    db-data: {}
